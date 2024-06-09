@@ -551,6 +551,9 @@ export default {
         this.$router.push('/about/Composite')
       }
     },
+    goHome() {
+      window.location.href = "http://localhost:3000";
+    },
   },
   mounted(){
     window.addEventListener("message",this.recieve);
@@ -575,6 +578,15 @@ export default {
     </div>
 
     <div class="select-wrapper" style="background-color: #DBD4CC;">
+      <el-button
+          @click="goHome"
+          size="large"
+          color="#409EFF"
+          style="color: white"
+          round
+        >
+          返回主页
+        </el-button>
       <el-button color="#B29F82"  style="color:white" @click="handleClick_setting" round>
         <el-icon><Setting/></el-icon>
         <p v-if="this.setting_is_open">隐藏便捷控制台</p>
