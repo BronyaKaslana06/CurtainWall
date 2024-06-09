@@ -767,14 +767,14 @@ export default {
       >
         切换政府大楼
       </el-button>
-      <el-button
+<!--      <el-button
         color="#DBD4CC"
         style="color: black"
         @click="changePage(2)"
         round
-      >
-        切换衷和楼
-      </el-button>
+      >-->
+<!--        切换衷和楼-->
+<!--      </el-button>-->
       <el-button color="#DBD4CC" style="color: black" @click="openVideo" round>
         观看教程
       </el-button>
@@ -1004,7 +1004,7 @@ export default {
             </a>
           </el-tab-pane>
 
-          <el-tab-pane name="compare">
+          <el-tab-pane name="compare" v-if="false">
             <template #label>
               <span class="custom-tabs-label">
                 <el-icon><Histogram /></el-icon>
@@ -1074,7 +1074,7 @@ export default {
             </el-button>
           </el-tab-pane>
 
-          <el-tab-pane name="measure">
+          <el-tab-pane name="measure" v-if="false">
             <template #label>
               <span class="custom-tabs-label">
                 <svg

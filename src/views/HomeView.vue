@@ -69,6 +69,10 @@ export default {
         this.$router.push("/about/Composite");
       }
     },
+    navigateToUpload() {
+      // 使用router.push方法跳转到/upload路由
+      this.$router.push('/upload');
+    },
     goHome() {
       window.location.href = "http://localhost:3000";
     },
@@ -91,11 +95,12 @@ export default {
           fill="#B29F82"
         >
           <el-radio-button label="0" size="middle">地震工程馆</el-radio-button>
-          <el-radio-button label="1" size="middle"
+<!--          <el-radio-button label="1" size="middle"
             >井开区政府⼤楼</el-radio-button
-          >
+          >-->
           <el-radio-button label="2" size="middle">衷和楼</el-radio-button>
         </el-radio-group>
+      </div>
       </div>
     </div>
 
@@ -111,6 +116,7 @@ export default {
         将局部图像中心点映射到三维模型上，并以红⻩绿三种颜色标识其损伤程度<br />▪
         查看局部图像的处理过程和检测结果<br />▪ 批量查看严重损伤幕墙块的具体情况
       </div>
+
 
       <el-divider />
 
@@ -154,11 +160,12 @@ export default {
         >
           返回主页
         </el-button>
+        <el-button @click="navigateToUpload" size="large" color="#B29F82" style="color:white" round>上传模型</el-button>
       </div>
     </div>
 
     <!-- 井开区政府大楼 -->
-    <div v-if="option === '1'" class="quake_info">
+    <div v-if="option==='1'" class="quake_info">
       <div class="text_1_1">
         <el-row style="margin-bottom: 2%"
           >井开区政府大楼三维幕墙裂缝检测展示系统</el-row
@@ -167,6 +174,7 @@ export default {
       <div class="text_1_2">
         井冈山国家级经济技术开发区政府新大楼的外围护结构，由石材幕墙加玻璃幕墙混合组成。建筑整体较新，石材幕墙⽆明显裂缝损伤。为保护隐私，与井开区城市建设管理局协商，在本系统中仅展⽰政府⼤楼背面和中间的石材幕墙部分区域，可作为系统功能和泛化性的验证。
       </div>
+
 
       <el-divider />
 
@@ -201,6 +209,7 @@ export default {
         >
           <el-icon><Pointer /></el-icon>前往体验
         </el-button>
+        <el-button @click="navigateToUpload" size="large" color="#B29F82" style="color:white" round>上传模型</el-button>
         <el-button
           @click="goHome"
           size="large"
@@ -295,7 +304,9 @@ export default {
           返回主页
         </el-button>
         <!-- <el-button size="large" color="#B29F82">111</el-button> -->
+        <el-button @click="navigateToUpload" size="large" color="#B29F82" style="color:white" round>上传模型</el-button>
       </div>
+
     </div>
 
     <!-- 右侧轮播图 -->
@@ -311,7 +322,7 @@ export default {
         </el-carousel-item>
       </el-carousel>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <style scope>
@@ -325,6 +336,8 @@ body {
 }
 .bk_image {
   width: 50vw;
+  position: absolute;
+  bottom: 0;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -380,3 +393,4 @@ body {
   background-color: rgba(211, 220, 230, 0.5);
 }
 </style>
+
