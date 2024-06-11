@@ -205,10 +205,10 @@ export default {
       for (var i = 0; i < des.length; i++) {
         that.$refs.unityModel.hide_des(
           des[i].info[0].data +
-            "," +
-            des[i].info[1].data +
-            "," +
-            des[i].info[2].data
+          "," +
+          des[i].info[1].data +
+          "," +
+          des[i].info[2].data
         );
       }
       that.setting_compare.points = [];
@@ -310,10 +310,10 @@ export default {
         //已满，删去第一个         //在模型上隐藏位点
         that.$refs.unityModel.hide_des(
           points[0].info[0].data +
-            "," +
-            points[0].info[1].data +
-            "," +
-            points[0].info[2].data
+          "," +
+          points[0].info[1].data +
+          "," +
+          points[0].info[2].data
         );
         //alert("hide_des: " + points[0].info[0].data + "," + points[0].info[1].data + "," + points[0].info[2].data);
         that.setting_compare.points.splice(0, 1); //列表中删去
@@ -523,8 +523,8 @@ export default {
       console.log("(来自vue)" + that.unityMessage);
       //console.log('(来自vue)' + event.data.type);
     },
-    goHome() {
-      window.location.href = "http://localhost:3000";
+    goMainPage() {
+      this.$router.push("/");
     },
   },
   mounted() {
@@ -535,7 +535,7 @@ export default {
 
 <template>
   <div class="about" style="background-color: #f5f5f5">
-    <div class="some-text">
+    <!-- <div class="some-text">
       <el-icon><Location /></el-icon>
       衷和楼（综合楼）三维幕墙裂缝检测展示系统
       <el-button
@@ -557,10 +557,10 @@ export default {
       <el-button color="#DBD4CC" style="color: black" @click="openVideo" round>
         观看教程
       </el-button>
-    </div>
+    </div> -->
 
     <div class="select-wrapper" style="background-color: #dbd4cc">
-      <el-button
+      <!--   <el-button
         @click="goHome"
         size="large"
         color="#409EFF"
@@ -568,14 +568,11 @@ export default {
         round
       >
         返回主页
-      </el-button>
-      <el-button
-        color="#B29F82"
-        style="color: white"
-        @click="handleClick_setting"
-        round
-      >
-        <el-icon><Setting /></el-icon>
+      </el-button> -->
+      <el-button color="#B29F82" style="color: white" @click="handleClick_setting" round>
+        <el-icon>
+          <Setting />
+        </el-icon>
         <p v-if="this.setting_is_open">隐藏便捷控制台</p>
         <p v-else>显示便捷控制台</p>
       </el-button>
@@ -583,54 +580,30 @@ export default {
       <p style="color: black; font-weight: bold">方位-图片名选择框:</p>
       &ensp;
 
-      <el-select-v2
-        v-model="select_1"
-        :options="selections[0]"
-        placeholder="Please select"
-        @change="updateSelections(0)"
-        size="middle"
-      />
+      <el-select-v2 v-model="select_1" :options="selections[0]" placeholder="Please select"
+        @change="updateSelections(0)" size="middle" />
       &ensp;
-      <el-select-v2
-        v-model="select_2"
-        :options="selections[1]"
-        placeholder="Please select"
-        @change="updateSelections(1)"
-        size="middle"
-        :disabled="!select_1"
-      />
+      <el-select-v2 v-model="select_2" :options="selections[1]" placeholder="Please select"
+        @change="updateSelections(1)" size="middle" :disabled="!select_1" />
       &ensp;
-      <el-cascader
-        v-model="select_3"
-        :options="selections[2]"
-        placeholder="Please select"
-        @change="updateSelections(2)"
-        size="middle"
-        :show-all-levels="false"
-        :disabled="!select_2"
-      />
+      <el-cascader v-model="select_3" :options="selections[2]" placeholder="Please select" @change="updateSelections(2)"
+        size="middle" :show-all-levels="false" :disabled="!select_2" />
       &ensp;
-      <el-button
-        @click="sendSelections"
-        :disabled="!select_3"
-        color="#B29F82"
-        style="color: white"
-      >
+      <el-button @click="sendSelections" :disabled="!select_3" color="#B29F82" style="color: white">
         确定
       </el-button>
+      <el-button type="warning" @click="goMainPage" >返回首页</el-button>
     </div>
 
     <div class="setting_and_model">
       <el-card v-if="setting_is_open" class="setting_wrapper">
-        <el-tabs
-          fill="black"
-          v-model="setting_type"
-          @tab-click="handleClick_type"
-        >
+        <el-tabs fill="black" v-model="setting_type" @tab-click="handleClick_type">
           <el-tab-pane name="camera">
             <template #label>
               <span class="custom-tabs-label">
-                <el-icon color="#463929"><VideoCamera /></el-icon>
+                <el-icon color="#463929">
+                  <VideoCamera />
+                </el-icon>
                 <span style="color: #463929">便捷控制台</span>
               </span>
             </template>
@@ -650,11 +623,7 @@ export default {
               <a class="text_2" v-if="false">
                 移动方式：
                 <el-row :span="24" style="margin-top: -5%">
-                  <el-radio-group
-                    v-model="setting_camera.modeSelection"
-                    class="ml-4"
-                    @change="handleClick_mode"
-                  >
+                  <el-radio-group v-model="setting_camera.modeSelection" class="ml-4" @change="handleClick_mode">
                     <el-radio label="0" size="large">靠近</el-radio>
                     <el-radio label="1" size="large">降落</el-radio>
                   </el-radio-group>
@@ -663,41 +632,45 @@ export default {
               <a class="text_2">
                 旋转：
                 <el-button @click="handleClick_rotating(0)">
-                  <el-icon><RefreshRight /></el-icon>&ensp;90°
+                  <el-icon>
+                    <RefreshRight />
+                  </el-icon>&ensp;90°
                 </el-button>
                 <el-button @click="handleClick_rotating(1)">
-                  <el-icon><RefreshLeft /></el-icon>&ensp;90°
+                  <el-icon>
+                    <RefreshLeft />
+                  </el-icon>&ensp;90°
                 </el-button>
                 <br />
               </a>
               <a class="text_2">
                 调整：
                 <el-button @click="handleClick_size(1)">
-                  <el-icon><ZoomIn /></el-icon>放大
+                  <el-icon>
+                    <ZoomIn />
+                  </el-icon>放大
                 </el-button>
                 <el-button @click="handleClick_size(0)">
-                  <el-icon><ZoomOut /></el-icon>缩小
+                  <el-icon>
+                    <ZoomOut />
+                  </el-icon>缩小
                 </el-button>
                 <br />
               </a>
               <a class="text_2">
                 快捷选择：
                 <el-row :span="24" style="margin-top: -2%; margin-bottom: 3%">
-                  <el-button
-                    @click="handleClick_quick('SE')"
-                    :loading="
-                      this.is_rotating === '1' && this.rotating === 'SE'
-                    "
-                  >
-                    <el-icon><Place /></el-icon>&ensp;SE-20
+                  <el-button @click="handleClick_quick('SE')" :loading="this.is_rotating === '1' && this.rotating === 'SE'
+                    ">
+                    <el-icon>
+                      <Place />
+                    </el-icon>&ensp;SE-20
                   </el-button>
-                  <el-button
-                    @click="handleClick_quick('SW')"
-                    :loading="
-                      this.is_rotating === '1' && this.rotating === 'SW'
-                    "
-                  >
-                    <el-icon><Place /></el-icon>&ensp;SW-20
+                  <el-button @click="handleClick_quick('SW')" :loading="this.is_rotating === '1' && this.rotating === 'SW'
+                    ">
+                    <el-icon>
+                      <Place />
+                    </el-icon>&ensp;SW-20
                   </el-button>
                 </el-row>
               </a>
@@ -709,25 +682,17 @@ export default {
             </a>
 
             <el-row style="margin-top: 3%; margin-bottom: 3%">
-              <el-button
-                color="#B29F82"
-                style="color: white"
-                @click="handleClick_reset"
-                :dark="isDark"
-                >重置</el-button
-              >
+              <el-button color="#B29F82" style="color: white" @click="handleClick_reset" :dark="isDark">重置</el-button>
               <el-button @click="handleClick_info" size="small" round>
-                <el-icon><InfoFilled /></el-icon>
+                <el-icon>
+                  <InfoFilled />
+                </el-icon>
               </el-button>
             </el-row>
 
             <a v-if="!setting_camera.is_info" class="text_info">
-              <el-card
-                class="box-card"
-                header="使用说明"
-                style="font-weight: bold; font-size: small"
-                body-style="padding:1px;"
-              >
+              <el-card class="box-card" header="使用说明" style="font-weight: bold; font-size: small"
+                body-style="padding:1px;">
                 <el-scrollbar height="300px">
                   <div style="padding: 5px 10px; width: 100%">
                     <li>键盘控制：</li>
@@ -741,8 +706,7 @@ export default {
                             <el-tag>W</el-tag>
                           </el-row>
                           <el-row>
-                            <el-tag>A</el-tag><el-tag>S</el-tag
-                            ><el-tag>D</el-tag>
+                            <el-tag>A</el-tag><el-tag>S</el-tag><el-tag>D</el-tag>
                           </el-row>
                         </el-col>
                         <br />&ensp;可移
@@ -772,69 +736,45 @@ export default {
           <el-tab-pane name="compare">
             <template #label>
               <span class="custom-tabs-label">
-                <el-icon><Histogram /></el-icon>
+                <el-icon>
+                  <Histogram />
+                </el-icon>
                 <span>对比</span>
               </span>
             </template>
             <a class="text_2">
               开启对比：
-              <el-switch
-                v-model="setting_compare.is_open"
-                style="
+              <el-switch v-model="setting_compare.is_open" style="
                   --el-switch-on-color: #c9b79e;
                   --el-switch-off-color: #dbd4cc;
-                "
-                @click="handleClick_compare"
-              />
+                " @click="handleClick_compare" />
             </a>
             <br />
             <a class="text_2">
               对比数：&emsp;
-              <el-input-number
-                v-model="setting_compare.max_num"
-                :min="1"
-                :max="10"
-                :step="1"
-                :disabled="!setting_compare.is_open"
-              />
+              <el-input-number v-model="setting_compare.max_num" :min="1" :max="10" :step="1"
+                :disabled="!setting_compare.is_open" />
             </a>
             <br />
             <a class="text_2">
               显示坐标：
-              <el-switch
-                v-model="setting_compare.is_show"
-                style="
+              <el-switch v-model="setting_compare.is_show" style="
                   --el-switch-on-color: #c9b79e;
                   --el-switch-off-color: #dbd4cc;
-                "
-                :disabled="!setting_compare.is_open"
-              />
+                " :disabled="!setting_compare.is_open" />
             </a>
             <br />
             <a class="text_2">
               显示形式：
-              <el-switch
-                v-model="type_compare"
-                class="ml-2"
-                inline-prompt
-                style="
+              <el-switch v-model="type_compare" class="ml-2" inline-prompt style="
                   --el-switch-on-color: #c9b79e;
                   --el-switch-off-color: #dbd4cc;
                   font-weight: normal;
-                "
-                active-text="显示全部"
-                inactive-text="逐个显示"
-                :disabled="!setting_compare.is_open"
-              />
+                " active-text="显示全部" inactive-text="逐个显示" :disabled="!setting_compare.is_open" />
             </a>
             <br />
-            <el-button
-              color="#B29F82"
-              style="color: white"
-              @click="handleClick_clear"
-              :dark="isDark"
-              :disabled="!setting_compare.is_open"
-            >
+            <el-button color="#B29F82" style="color: white" @click="handleClick_clear" :dark="isDark"
+              :disabled="!setting_compare.is_open">
               清空
             </el-button>
           </el-tab-pane>
@@ -842,20 +782,10 @@ export default {
           <el-tab-pane name="measure" v-if="0">
             <template #label>
               <span class="custom-tabs-label">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M16.2929 1.29289C16.6834 0.902369 17.3166 0.902369 17.7071 1.29289L22.7071 6.29289C23.0976 6.68342 23.0976 7.31658 22.7071 7.70711L7.70711 22.7071C7.31658 23.0976 6.68342 23.0976 6.29289 22.7071L1.29289 17.7071C0.902369 17.3166 0.902369 16.6834 1.29289 16.2929L3.79275 13.793L13.7928 3.79303L16.2929 1.29289ZM14.5 5.91421L13.4142 7L15.7071 9.29289C16.0976 9.68342 16.0976 10.3166 15.7071 10.7071C15.3166 11.0976 14.6834 11.0976 14.2929 10.7071L12 8.41421L10.9142 9.5L12.2071 10.7929C12.5976 11.1834 12.5976 11.8166 12.2071 12.2071C11.8166 12.5976 11.1834 12.5976 10.7929 12.2071L9.5 10.9142L8.41421 12L10.7071 14.2929C11.0976 14.6834 11.0976 15.3166 10.7071 15.7071C10.3166 16.0976 9.68342 16.0976 9.29289 15.7071L7 13.4142L5.91421 14.5L7.20711 15.7929C7.59763 16.1834 7.59763 16.8166 7.20711 17.2071C6.81658 17.5976 6.18342 17.5976 5.79289 17.2071L4.5 15.9142L3.41421 17L7 20.5858L20.5858 7L17 3.41421L15.9142 4.5L17.2071 5.79289C17.5976 6.18342 17.5976 6.81658 17.2071 7.20711C16.8166 7.59763 16.1834 7.59763 15.7929 7.20711L14.5 5.91421Z"
-                    fill="black"
-                    fill-opacity="0.85"
-                  />
+                    fill="black" fill-opacity="0.85" />
                 </svg>
                 <span>测距</span>
               </span>
@@ -863,30 +793,20 @@ export default {
 
             <a>
               开启测距：
-              <el-switch
-                v-model="setting_measure.is_open"
-                @click="handleClick_measure"
-              />
+              <el-switch v-model="setting_measure.is_open" @click="handleClick_measure" />
             </a>
 
             <div class="measure_steps">
-              <el-steps
-                direction="vertical"
-                :active="Number(setting_measure.step)"
-                finish-status="success"
-              >
+              <el-steps direction="vertical" :active="Number(setting_measure.step)" finish-status="success">
                 <el-step title="选择第一个点位" />
                 <el-step title="选择第二个点位" />
               </el-steps>
             </div>
 
             <a v-if="setting_measure.has_data">
-              <a>水平距离：{{ setting_measure.distance[0] }}</a
-              ><br />
-              <a>垂直距离：{{ setting_measure.distance[1] }}</a
-              ><br />
-              <a>直线距离：{{ setting_measure.distance[2] }}</a
-              ><br />
+              <a>水平距离：{{ setting_measure.distance[0] }}</a><br />
+              <a>垂直距离：{{ setting_measure.distance[1] }}</a><br />
+              <a>直线距离：{{ setting_measure.distance[2] }}</a><br />
             </a>
           </el-tab-pane>
         </el-tabs>
@@ -901,14 +821,8 @@ export default {
       <p class="text_1">当前查看：</p>
       <div class="details">
         <div class="image">
-          <el-image
-            style="width: 200px; height: 200px"
-            :src="url"
-            :zoom-rate="1.2"
-            :preview-src-list="[url]"
-            :initial-index="4"
-            fit="cover"
-          >
+          <el-image style="width: 200px; height: 200px" :src="url" :zoom-rate="1.2" :preview-src-list="[url]"
+            :initial-index="4" fit="cover">
             <template #error>
               <div class="image-slot">NULL</div>
             </template>
@@ -933,18 +847,9 @@ export default {
         <p class="text_1">最近查看：</p>
         <el-scrollbar>
           <div style="display: flex">
-            <a
-              v-for="(point, index) in setting_compare.points.slice().reverse()"
-              :key="index"
-            >
-              <el-card
-                v-if="point.state === '1'"
-                :body-style="{ padding: '0px' }"
-                class="compare_card"
-              >
-                <el-row
-                  style="margin-top: 3%; margin-bottom: 3%; position: relative"
-                >
+            <a v-for="(point, index) in setting_compare.points.slice().reverse()" :key="index">
+              <el-card v-if="point.state === '1'" :body-style="{ padding: '0px' }" class="compare_card">
+                <el-row style="margin-top: 3%; margin-bottom: 3%; position: relative">
                   <a>NO. {{ setting_compare.points.length - index }}</a>
                   <a v-if="!index" style="position: absolute; right: 1%">
                     <el-tag type="danger" class="mx-1" effect="plain" round>
@@ -953,14 +858,8 @@ export default {
                   </a>
                 </el-row>
                 <div class="compare_image">
-                  <el-image
-                    style="width: 200px; height: 200px"
-                    :src="point.url"
-                    :zoom-rate="1.2"
-                    :preview-src-list="[point.url]"
-                    :initial-index="4"
-                    fit="cover"
-                  >
+                  <el-image style="width: 200px; height: 200px" :src="point.url" :zoom-rate="1.2"
+                    :preview-src-list="[point.url]" :initial-index="4" fit="cover">
                     <template #error>
                       <div class="image-slot">NULL</div>
                     </template>
@@ -973,31 +872,27 @@ export default {
                   </p>
                 </div>
                 <div class="compare_operation">
-                  <el-button
-                    @click="
-                      handleClick_search(
-                        setting_compare.points.length - index - 1
-                      )
-                    "
-                  >
-                    <el-icon><Search /></el-icon>
+                  <el-button @click="
+                    handleClick_search(
+                      setting_compare.points.length - index - 1
+                    )
+                    ">
+                    <el-icon>
+                      <Search />
+                    </el-icon>
                   </el-button>
-                  <el-button
-                    @click="
-                      handleClick_delete(
-                        setting_compare.points.length - index - 1
-                      )
-                    "
-                  >
-                    <el-icon><Delete /></el-icon>
+                  <el-button @click="
+                    handleClick_delete(
+                      setting_compare.points.length - index - 1
+                    )
+                    ">
+                    <el-icon>
+                      <Delete />
+                    </el-icon>
                   </el-button>
                 </div>
               </el-card>
-              <el-card
-                v-else-if="point.state === '2'"
-                :body-style="{ padding: '0px' }"
-                class="compare_card"
-              >
+              <el-card v-else-if="point.state === '2'" :body-style="{ padding: '0px' }" class="compare_card">
                 <a>
                   <el-icon color="#939393" :size="65" @click="handleClick_more">
                     <More />
@@ -1028,6 +923,7 @@ export default {
 .about {
   background-color: white;
 }
+
 .some-text {
   background-color: #ada08c;
   height: 80px;
@@ -1037,6 +933,7 @@ export default {
   letter-spacing: 1px;
   width: 100%;
 }
+
 .image-slot {
   display: flex;
   justify-content: center;
@@ -1062,34 +959,43 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .setting_wrapper {
   width: 400px;
   margin-top: -35px;
   height: 660px;
   line-height: 45px;
 }
+
 .setting_wrapper .custom-tabs-label .el-icon {
   vertical-align: middle;
 }
+
 .el-checkbox__label {
-  font-size: 16px !important; /* 使用 !important 来提高优先级 */
+  font-size: 16px !important;
+  /* 使用 !important 来提高优先级 */
 }
+
 .el-radio.el-radio--large .el-radio__label {
   font-size: 15px !important;
 }
+
 .text_2 {
   font-size: 15px;
   font-weight: bold;
 }
+
 .text_info {
   font-size: 14px;
   line-height: 20px;
   font-weight: bold;
 }
+
 .text_3 {
   font-weight: normal;
   line-height: 26px;
 }
+
 .measure_steps {
   margin-top: 10%;
   margin-left: 5%;
@@ -1103,6 +1009,7 @@ export default {
   bottom: -15px;
   left: 11px;
 }
+
 .el-step__icon.is-text {
   border-radius: 50%;
   border: 2px solid;
@@ -1118,23 +1025,29 @@ export default {
   margin-left: 15%;
   width: 70%;
 }
+
 .text_1 {
   font-size: 20px;
   font-weight: bold;
 }
+
 .details {
   display: flex;
   align-items: flex-start;
 }
+
 .image {
   margin-left: 0px;
 }
+
 .info {
   margin-left: 20px;
 }
+
 .compare {
   line-height: 25px;
 }
+
 .compare_card {
   flex-shrink: 0;
   display: flex;
@@ -1145,14 +1058,17 @@ export default {
   height: 430px;
   margin-left: 1%;
 }
+
 .compare_image {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .compare_info {
   line-height: 18px;
 }
+
 .compare_operation {
   display: flex;
   justify-content: center;
@@ -1162,6 +1078,7 @@ export default {
 .divide {
   line-height: 25px;
 }
+
 .divide.steps.el-step__line {
   top: 50% !important;
   height: 4px;
