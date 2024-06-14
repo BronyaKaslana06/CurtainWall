@@ -552,7 +552,7 @@ export default {
       }
     },
     goHome() {
-      window.location.href = "http://localhost:3000";
+      window.location.href = "http://111.231.168.12:3000";
     },
   },
   mounted(){
